@@ -114,7 +114,6 @@ int main(int argc, char* argv[]) {
     }
 
     std::string test = readFile("pointfiles/test.pf");
-    printf("%s\n", test.c_str());
 
     bool hasQuit = false;
 
@@ -167,33 +166,17 @@ int main(int argc, char* argv[]) {
         accTime += elapsedTime;
         numFrames++;
 
-        fpsFont.setText(std::to_string(msToFps(elapsedTime, 1)), SDL_Color{0, 0, 0, 255});
-
-        //printf("FPS: %f\n", msToFps(elapsedTime, 1));
-
-        //printf("FPS: %f\n", msToFps(elapsedTime));
+        SDL_Color bgColor{0, 0, 0, 255};
+        fpsFont.setText(std::to_string(msToFps(elapsedTime, 1)), SDL_Color{255, 255, 255, 255}, &bgColor);
 
         SDL_PollEvent(&event);
         if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)) hasQuit = true;
         else if(event.type == SDL_MOUSEMOTION) {
-            const float CAM_SPEED = 0.01 * elapsedTime;
+            const float CAM_SPEED_X = event.motion.xrel / 100.0;
+            const float CAM_SPEED_Y = event.motion.yrel / 100.0;
 
-            if (event.motion.xrel > 0) {
-                mainCam.changeXRot(CAM_SPEED);
-            }
-            else if (event.motion.xrel < 0) {
-                mainCam.changeXRot(-CAM_SPEED);
-            }
-            
-            if (event.motion.yrel > 0) {
-                mainCam.changeYRot(-CAM_SPEED);
-            }
-            else if (event.motion.yrel < 0) {
-                mainCam.changeYRot(CAM_SPEED);
-            }
-
-            //mainCam.changeXRot((event.motion.xrel > 0 ? ) * 0.0009 * elapsedTime);
-            //mainCam.changeYRot(event.motion.yrel * -0.0009 * elapsedTime);
+            mainCam.changeXRot(CAM_SPEED_X);
+            mainCam.changeYRot(-CAM_SPEED_Y);
         }
 
         handleKeyPressed(event, moveDirs);
