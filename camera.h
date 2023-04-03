@@ -3,6 +3,7 @@
 
 #include "prog_inst.h"
 #include "points.h"
+#include "rufont.h"
 
 class Camera {
 public:
@@ -31,6 +32,7 @@ public:
     Point3d getPos() const;
 
     void update(Uint32 frameTime);
+    void renderDebug(int x, int y);
 
     float getSpeed() const;
 
@@ -40,13 +42,15 @@ private:
     float _fov;
     float _fovTan;
     const float _defSpeed;
-    float _lastFrameTime; // Holds the 
+    float _lastFrameTime;
     ProgInstance& _progInst;
 
     Point3d _pos;
 
     float _rotX;
     float _rotY;
+
+    RUFont _posFont;
 };
 
 #endif

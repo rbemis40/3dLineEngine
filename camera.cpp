@@ -10,7 +10,8 @@ Camera::Camera(float fov, ProgInstance& progInst) :
     _defSpeed(0.05),
     _lastFrameTime(0),
     _rotX(0),
-    _rotY(0)
+    _rotY(0),
+    _posFont("fonts/Geneva.ttf", 12, progInst)
 {}
 
 
@@ -55,6 +56,53 @@ void Camera::applyRotation(Point3d& pt) {
     pt.x = newX;
     pt.y = newY;
     pt.z = newZ;
+}
+
+void Camera::renderDebug(int x, int y) {
+    SDL_Color debugFg = {255, 255, 255, 255};
+    SDL_Color debugBg = {0, 0, 0, 255};
+
+    const int FONT_SIZE = 12;
+    int curYPos = y;
+
+    // Draw x pos text
+    _posFont.setPosition(x, curYPos);
+    _posFont.setText("X: " + std::to_string(_pos.x), debugFg, &debugBg);
+
+    _posFont.render();
+
+    curYPos += FONT_SIZE;
+
+    // Draw y pos text
+    _posFont.setPosition(x, curYPos);
+    _posFont.setText("Y: " + std::to_string(_pos.y), debugFg, &debugBg);
+
+    _posFont.render();
+
+    curYPos += FONT_SIZE;
+
+    // Draw z pos text
+    _posFont.setPosition(x, curYPos);
+    _posFont.setText("Z: " + std::to_string(_pos.z), debugFg, &debugBg);
+
+    _posFont.render();
+
+    // Draw xRot text
+
+    curYPos += FONT_SIZE * 2;
+
+    _posFont.setPosition(x, curYPos);
+    _posFont.setText("X Rot: " + std::to_string(_rotX), debugFg, &debugBg);
+
+    _posFont.render();
+
+    // Draw yRot text
+    curYPos += FONT_SIZE;
+
+    _posFont.setPosition(x, curYPos);
+    _posFont.setText("Y Rot: " + std::to_string(_rotY), debugFg, &debugBg);
+
+    _posFont.render();
 }
 
 void Camera::changeX(float dX) {
