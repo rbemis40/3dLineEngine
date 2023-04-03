@@ -13,7 +13,9 @@ public:
     ~RUFont();
 
     void setPosition(int x, int y);
-    void setText(std::string newText, SDL_Color color);
+
+    // Changes the text for the RUFont, if colorBg is null, then the background is transparent (blended)
+    void setText(std::string newText, SDL_Color colorFg, const SDL_Color* colorBg);
     void render();
 
     std::string getText();

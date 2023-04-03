@@ -39,7 +39,7 @@ void RUFont::setPosition(int x, int y) {
     _pos.y = (int)(y * dpiScale);
 }
 
-void RUFont::setText(std::string newText, SDL_Color color) {
+void RUFont::setText(std::string newText, SDL_Color fgColor, const SDL_Color* bgColor) {
     _text = newText;
     clean();
 
@@ -55,7 +55,14 @@ void RUFont::setText(std::string newText, SDL_Color color) {
         return;
     }
 
-    _fSurf = TTF_RenderUTF8_Blended(_font, _text.c_str(), color);
+    if (bgColor != nullptr) {
+        _fSurf = TTF_RenderUTF8_Shaded(_font, _text.c_str(), fgColor, *bgColor);
+    }
+    else {
+        _fSurf = TTF_RenderUTF8_Blended(_font, _text.c_str(), fgColor);
+    }
+
+
     if (_fSurf == NULL) {
         printf("Failed to create font surface with text: %s\nSDL Error: %s\n", _text.c_str(), TTF_GetError());
         return;
