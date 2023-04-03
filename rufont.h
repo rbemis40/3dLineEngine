@@ -5,14 +5,16 @@
 #include <SDL_ttf.h>
 #include <string>
 
+#include "prog_inst.h"
+
 class RUFont {
 public:
-    RUFont(std::string fontFile, int ptSize);
+    RUFont(std::string fontFile, int ptSize, ProgInstance& inst);
     ~RUFont();
 
     void setPosition(int x, int y);
-    void setText(std::string newText, SDL_Color color, SDL_Renderer* ren);
-    void render(SDL_Renderer* ren);
+    void setText(std::string newText, SDL_Color color);
+    void render();
 
     std::string getText();
 
@@ -29,6 +31,8 @@ private:
     std::string _text;
 
     SDL_Rect _pos;
+
+    ProgInstance& _inst;
 };
 
 #endif

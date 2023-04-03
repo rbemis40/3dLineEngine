@@ -1,10 +1,11 @@
 #include "rufont.h"
 
-RUFont::RUFont(std::string fontFile, int ptSize) :
+RUFont::RUFont(std::string fontFile, int ptSize, ProgInstance& inst) :
     _fSurf(nullptr),
     _fTex(nullptr),
     _font(nullptr),
-    _size(ptSize)
+    _size(ptSize),
+    _inst(inst)
 {
     int ttfSuccess = TTF_Init();
     if (ttfSuccess != 0) {
@@ -12,7 +13,10 @@ RUFont::RUFont(std::string fontFile, int ptSize) :
         return;
     }
 
-    _font = TTF_OpenFont(fontFile.c_str(), ptSize);
+    // Adjust point size for dpi
+    int adjPtSize = ptSize * _inst.getDPIScale();
+
+    _font = TTF_OpenFont(fontFile.c_str(), adjPtSize);
     if (_font == NULL) {
         printf("Failed to open font file: %s\n", TTF_GetError());
         return;
@@ -27,13 +31,19 @@ RUFont::~RUFont() {
 }
 
 void RUFont::setPosition(int x, int y) {
-    _pos.x = x;
-    _pos.y = y;
+    // Adjust x and y for dpi
+
+    float dpiScale = _inst.getDPIScale();
+
+    _pos.x = (int)(x * dpiScale);
+    _pos.y = (int)(y * dpiScale);
 }
 
-void RUFont::setText(std::string newText, SDL_Color color, SDL_Renderer* ren) {
+void RUFont::setText(std::string newText, SDL_Color color) {
     _text = newText;
     clean();
+
+    SDL_Renderer* ren = _inst.getRen();
 
     if (ren == NULL) {
         printf("Cannot set text with invalid renderer!\n");
@@ -66,7 +76,8 @@ std::string RUFont::getText() {
     return _text;
 }
 
-void RUFont::render(SDL_Renderer* ren) {
+void RUFont::render() {
+    SDL_Renderer* ren = _inst.getRen();
     if (_fTex == nullptr || ren == nullptr) {
         return;
     }

@@ -15,6 +15,8 @@ public:
     int getWinWidth();
     int getWinHeight();
 
+    float getDPIScale();
+
     SDL_Renderer* getRen();
 
 private:
@@ -25,6 +27,8 @@ private:
 
     int _winWidth;
     int _winHeight;
+
+    float _dpiScale;
 };
 
 #endif
