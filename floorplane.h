@@ -9,7 +9,7 @@ public:
     FloorPlane(Camera& cam);
 
     void update(Uint32 frameTime);
-    void render(SDL_Renderer* ren);
+    void render();
 private:
     RenThreadPool _pool;
     const int _numPlanes;

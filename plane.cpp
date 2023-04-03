@@ -52,7 +52,7 @@ void Plane::pointsTo2d() {
     }
 }
 
-void Plane::render(SDL_Renderer *ren) {
+void Plane::render() {
     // TODO: Need to implement a fill polygon function, as this only works for planes perpendicular to the camera view
     Point3d camPos = _cam.getPos();
     Point3d lastPoint = _rotPoints3d[3];
@@ -89,7 +89,7 @@ void Plane::render(SDL_Renderer *ren) {
         lastPoint = curPoint;
 
         if (shouldDraw) {
-            _segs[i].render(ren);
+            _segs[i].render(curInst.getRen());
         }
     }
 

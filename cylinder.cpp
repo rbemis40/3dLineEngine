@@ -52,8 +52,8 @@ void Cylinder::update(Uint32 frameTime) {
     }
 }
 
-void Cylinder::render(SDL_Renderer* ren) {
+void Cylinder::render() {
     for(auto& plane : _planes) {
-        plane.render(ren);
+        plane.render();
     }
 }

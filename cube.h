@@ -16,7 +16,7 @@ public:
     void setPos(Point3d newPos);
 
     void update(Uint32 frameTime);
-    void render(SDL_Renderer* ren);
+    void render();
 
     Point3d getPos();
     Point3d getDim();

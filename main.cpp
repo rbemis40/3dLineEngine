@@ -211,18 +211,18 @@ int main(int argc, char* argv[]) {
         SDL_RenderClear(progRen);
 
         // Draw here
-        blLeg.render(progRen);
-        brLeg.render(progRen);
-        flLeg.render(progRen);
-        frLeg.render(progRen);
-        seat.render(progRen);
-        meterCube.render(progRen);
-        fPlane.render(progRen);
+        blLeg.render();
+        brLeg.render();
+        flLeg.render();
+        frLeg.render();
+        seat.render();
+        meterCube.render();
+        fPlane.render();
 
-        testCylinder.render(progRen);
+        testCylinder.render();
 
         for (auto& pfPlane : tlPFPlanes) {
-            pfPlane.render(progRen);
+            pfPlane.render();
         }
 
         fpsFont.render();

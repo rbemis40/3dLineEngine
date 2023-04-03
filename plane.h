@@ -16,7 +16,7 @@ public:
 
     void printPoints();
     void update(Uint32 frameTime);
-    void render(SDL_Renderer *ren);
+    void render();
 private:
 
     void pointsTo2d();

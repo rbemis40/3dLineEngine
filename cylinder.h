@@ -13,7 +13,7 @@ public:
     Cylinder(Point3d pos, float radius, float h, Camera& cam);
 
     void update(Uint32 frameTime);
-    void render(SDL_Renderer* ren);
+    void render();
 private:
     std::vector<Plane> _planes;
 };

@@ -9,7 +9,7 @@
 class Object3d {
 public:
     virtual void update(Uint32 frameTime) = 0;
-    virtual void render(SDL_Renderer* ren) = 0;
+    virtual void render() = 0;
 protected:
     std::vector<Cube> _cubes;
     std::vector<Plane> _planes;

@@ -30,8 +30,8 @@ void FloorPlane::update(Uint32 frameTime) {
     // }
 }
 
-void FloorPlane::render(SDL_Renderer* ren) {
+void FloorPlane::render() {
     for(auto pIt = _planes.begin(); pIt != _planes.end(); pIt++) {
-        pIt->render(ren);
+        pIt->render();
     }
 }

@@ -50,8 +50,8 @@ void Cube::update(Uint32 frameTime) {
     }
 }
 
-void Cube::render(SDL_Renderer* ren) {
+void Cube::render() {
     for (int i = 0; i < 4; i++) {
-        _planes[i].render(ren);
+        _planes[i].render();
     }
 }
