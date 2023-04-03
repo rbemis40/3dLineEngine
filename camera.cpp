@@ -25,7 +25,8 @@ Point2d Camera::pointProjection(Point3d pt) {
 
     float zPlaneScaleM = _fovTan * (clippedZ) * 2.0f;
 
-    float pxPerM = 1500 / zPlaneScaleM;
+    // _progInst.getRenWidth() can be any value, but scales z distances which can get weird for other values
+    float pxPerM = _progInst.getRenWidth() / zPlaneScaleM;
 
     float xPos = (_progInst.getRenWidth() / 2.0) + ((pt.x) * pxPerM);
     float yPos = (_progInst.getRenHeight() / 2.0) + ((pt.y) * pxPerM);

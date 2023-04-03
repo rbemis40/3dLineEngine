@@ -26,7 +26,7 @@ Plane::~Plane() {}
 
 void Plane::printPoints() {
     for (int i = 0; i < 4; i++) {
-        //std::printf("_points[%d] = (%f, %f, %f)\n", i, _points3d[i].x, _points3d[i].y, _points3d[i].z);
+        std::printf("_points[%d] = (%f, %f, %f)\n", i, _points3d[i].x, _points3d[i].y, _points3d[i].z);
     }
 }
 
