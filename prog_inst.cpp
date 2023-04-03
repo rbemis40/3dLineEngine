@@ -27,20 +27,10 @@ ProgInstance::ProgInstance(std::string title, int width, int height, bool reqVsy
     int winWidthPts, winHeightPts;
     SDL_GetWindowSize(_win, &winWidthPts, &winHeightPts);
 
-    if (winWidthPts == NULL || winHeightPts == NULL) {
-        _initSuccess = false;
-        return;
-    }
-
     int renWidthPx, renHeightPx;
     SDL_GetRendererOutputSize(_ren, &renWidthPx, &renHeightPx);
 
-    if (renWidthPx == NULL || renHeightPx == NULL) {
-        _initSuccess = false;
-        return;
-    }
-
-    _dpiScale = (float)renWidthPx / winWidthPts;
+    _dpiScale = (float)(renWidthPx) / winWidthPts;
 
     _initSuccess = true;
 }

@@ -106,6 +106,7 @@ void handleKeyPressed(const SDL_Event& event, RectDirs& dirs) {
 
 int main(int argc, char* argv[]) {
     ProgInstance mainInst("Hello World!", 1280, 720, true);
+
     if (!mainInst.isValid()) {
         printf("Program instance creation failed: SDL Error: %s\n", SDL_GetError());
         return -1;
