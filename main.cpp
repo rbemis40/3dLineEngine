@@ -15,6 +15,7 @@
 #include "floorplane.h"
 #include "cylinder.h"
 #include "pfblock_tl.h"
+#include "rufont.h"
 
 struct RectDirs {
     bool right = false;
@@ -119,6 +120,8 @@ int main(int argc, char* argv[]) {
 
     SDL_Renderer *progRen = mainInst.getRen();
 
+    RUFont fpsFont("fonts/Geneva.ttf", 12, mainInst);
+
     Camera mainCam((float)M_PI/2, mainInst);
 
     FloorPlane fPlane(mainCam);
@@ -163,7 +166,10 @@ int main(int argc, char* argv[]) {
 
         accTime += elapsedTime;
         numFrames++;
-        printf("FPS: %f\n", msToFps(elapsedTime, 1));
+
+        fpsFont.setText(std::to_string(msToFps(elapsedTime, 1)), SDL_Color{0, 0, 0, 255});
+
+        //printf("FPS: %f\n", msToFps(elapsedTime, 1));
 
         //printf("FPS: %f\n", msToFps(elapsedTime));
 
@@ -235,6 +241,8 @@ int main(int argc, char* argv[]) {
         for (auto& pfPlane : tlPFPlanes) {
             pfPlane.render(progRen);
         }
+
+        fpsFont.render();
 
         SDL_RenderPresent(progRen);
     }

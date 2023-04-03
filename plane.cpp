@@ -57,6 +57,8 @@ void Plane::render(SDL_Renderer *ren) {
     Point3d camPos = _cam.getPos();
     Point3d lastPoint = _rotPoints3d[3];
 
+    ProgInstance& curInst = _cam.getInstance();
+
     for (int i = 0; i < 4; i++) {
         bool shouldDraw = true;
 
@@ -65,7 +67,7 @@ void Plane::render(SDL_Renderer *ren) {
             shouldDraw = false;
         }
         //Check if the segment is off the screen to the right
-        else if(_segs[i].getIPoint().x > 1280 && _segs[i].getFPoint().x > 1280) {
+        else if(_segs[i].getIPoint().x > curInst.getRenWidth() && _segs[i].getFPoint().x > curInst.getRenWidth()) {
             shouldDraw = false;
         }
         // Check if the segment is off the screen to the top
@@ -73,7 +75,7 @@ void Plane::render(SDL_Renderer *ren) {
             shouldDraw = false;
         }
         // Check if the segment is off the screen to the bottom
-        else if(_segs[i].getIPoint().y > 720 && _segs[i].getFPoint().y > 720) {
+        else if(_segs[i].getIPoint().y > curInst.getRenHeight() && _segs[i].getFPoint().y > curInst.getRenHeight()) {
             shouldDraw = false;
         }
 

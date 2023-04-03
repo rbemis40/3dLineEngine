@@ -66,3 +66,11 @@ int ProgInstance::getWinHeight() {
 float ProgInstance::getDPIScale() {
     return _dpiScale;
 }
+
+int ProgInstance::getRenWidth() {
+    return (int)(_winWidth * _dpiScale);
+}
+
+int ProgInstance::getRenHeight() {
+    return (int)(_winHeight * _dpiScale);
+}

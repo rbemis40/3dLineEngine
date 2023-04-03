@@ -27,8 +27,8 @@ Point2d Camera::pointProjection(Point3d pt) {
 
     float pxPerM = 1500 / zPlaneScaleM;
 
-    float xPos = (_progInst.getWinWidth() / 2.0) + ((pt.x) * pxPerM);
-    float yPos = (_progInst.getWinHeight() / 2.0) + ((pt.y) * pxPerM);
+    float xPos = (_progInst.getRenWidth() / 2.0) + ((pt.x) * pxPerM);
+    float yPos = (_progInst.getRenHeight() / 2.0) + ((pt.y) * pxPerM);
 
     Point2d projPoint = {xPos, yPos};
     return projPoint;
@@ -108,4 +108,8 @@ void Camera::update(Uint32 frameTime) {
 
 Point3d Camera::getPos() const {
     return _pos;
+}
+
+ProgInstance& Camera::getInstance() {
+    return _progInst;
 }

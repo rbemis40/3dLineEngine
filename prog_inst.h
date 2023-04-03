@@ -15,6 +15,9 @@ public:
     int getWinWidth();
     int getWinHeight();
 
+    int getRenWidth();
+    int getRenHeight();
+
     float getDPIScale();
 
     SDL_Renderer* getRen();

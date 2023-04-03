@@ -34,6 +34,8 @@ public:
 
     float getSpeed() const;
 
+    ProgInstance& getInstance();
+
 private:
     float _fov;
     float _fovTan;
