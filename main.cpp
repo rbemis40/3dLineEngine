@@ -17,6 +17,7 @@
 #include "pfblock_tl.h"
 #include "rufont.h"
 
+// Forward declarations
 struct RectDirs {
     bool right = false;
     bool left = false;
@@ -26,84 +27,11 @@ struct RectDirs {
     bool backward = false;
 };
 
-float msToFps(Uint32 ms, int numFrames) {
-    return 1000.0f * numFrames / ms;
-}
+float msToFps(Uint32 ms, int numFrames);
+void testRender(SDL_Renderer* ren, SDL_Texture* tex);
+std::string readFile(std::string fileName);
+void handleKeyPressed(const SDL_Event& event, RectDirs& dirs);
 
-void testRender(SDL_Renderer* ren, SDL_Texture* tex) {
-    SDL_SetRenderTarget(ren, tex);
-
-    SDL_SetRenderDrawColor(ren, 255, 0, 0, 255);
-    for (int y = 0; y < 720; y++) {
-        SDL_RenderDrawLine(ren, 0, y, 1280, y);
-    }
-
-    SDL_SetRenderTarget(ren, NULL);
-    SDL_RenderCopy(ren, tex, NULL, NULL);
-
-    SDL_DestroyTexture(tex);
-}
-
-std::string readFile(std::string fileName) {
-    std::ifstream inFile;
-    std::stringbuf fileBuf;
-    inFile.open(fileName);
-
-    inFile.get(fileBuf, '\0');
-
-    inFile.close();
-
-    return fileBuf.str();
-}
-
-void handleKeyPressed(const SDL_Event& event, RectDirs& dirs) {
-    switch(event.type) {
-        case SDL_KEYDOWN:
-            switch (event.key.keysym.sym) {
-                case SDLK_d:
-                    dirs.right = true;
-                    break;
-                case SDLK_a:
-                    dirs.left = true;
-                    break;
-                case SDLK_w:
-                    dirs.forward = true;
-                    break;
-                case SDLK_s:
-                    dirs.backward = true;
-                    break;
-                case SDLK_SPACE:
-                    dirs.up = true;
-                    break;
-                case SDLK_LSHIFT:
-                    dirs.down = true;
-                    break;
-            }
-            break;
-        case SDL_KEYUP:
-            switch(event.key.keysym.sym) {
-                case SDLK_d:
-                    dirs.right = false;
-                    break;
-                case SDLK_a:
-                    dirs.left = false;
-                    break;
-                case SDLK_w:
-                    dirs.forward = false;
-                    break;
-                case SDLK_s:
-                    dirs.backward = false;
-                    break;
-                case SDLK_SPACE:
-                    dirs.up = false;
-                    break;
-                case SDLK_LSHIFT:
-                    dirs.down = false;
-                    break;
-            }
-        break;
-    }
-}
 
 int main(int argc, char* argv[]) {
     ProgInstance mainInst("Hello World!", 1280, 720, true);
@@ -232,4 +160,84 @@ int main(int argc, char* argv[]) {
     }
 
     return 0;
+}
+
+// Definitions
+float msToFps(Uint32 ms, int numFrames) {
+    return 1000.0f * numFrames / ms;
+}
+
+void testRender(SDL_Renderer* ren, SDL_Texture* tex) {
+    SDL_SetRenderTarget(ren, tex);
+
+    SDL_SetRenderDrawColor(ren, 255, 0, 0, 255);
+    for (int y = 0; y < 720; y++) {
+        SDL_RenderDrawLine(ren, 0, y, 1280, y);
+    }
+
+    SDL_SetRenderTarget(ren, NULL);
+    SDL_RenderCopy(ren, tex, NULL, NULL);
+
+    SDL_DestroyTexture(tex);
+}
+
+std::string readFile(std::string fileName) {
+    std::ifstream inFile;
+    std::stringbuf fileBuf;
+    inFile.open(fileName);
+
+    inFile.get(fileBuf, '\0');
+
+    inFile.close();
+
+    return fileBuf.str();
+}
+
+void handleKeyPressed(const SDL_Event& event, RectDirs& dirs) {
+    switch(event.type) {
+        case SDL_KEYDOWN:
+            switch (event.key.keysym.sym) {
+                case SDLK_d:
+                    dirs.right = true;
+                    break;
+                case SDLK_a:
+                    dirs.left = true;
+                    break;
+                case SDLK_w:
+                    dirs.forward = true;
+                    break;
+                case SDLK_s:
+                    dirs.backward = true;
+                    break;
+                case SDLK_SPACE:
+                    dirs.up = true;
+                    break;
+                case SDLK_LSHIFT:
+                    dirs.down = true;
+                    break;
+            }
+            break;
+        case SDL_KEYUP:
+            switch(event.key.keysym.sym) {
+                case SDLK_d:
+                    dirs.right = false;
+                    break;
+                case SDLK_a:
+                    dirs.left = false;
+                    break;
+                case SDLK_w:
+                    dirs.forward = false;
+                    break;
+                case SDLK_s:
+                    dirs.backward = false;
+                    break;
+                case SDLK_SPACE:
+                    dirs.up = false;
+                    break;
+                case SDLK_LSHIFT:
+                    dirs.down = false;
+                    break;
+            }
+        break;
+    }
 }
