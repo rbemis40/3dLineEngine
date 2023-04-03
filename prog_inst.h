@@ -22,6 +22,9 @@ public:
 
     SDL_Renderer* getRen();
 
+    void beginRender(SDL_Color bgColor);
+    void finishRender();
+
 private:
     SDL_Window* _win;
     SDL_Renderer* _ren;

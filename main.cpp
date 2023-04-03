@@ -156,6 +156,8 @@ int main(int argc, char* argv[]) {
 
     SDL_SetRelativeMouseMode(SDL_TRUE);
 
+    SDL_Color winBgColor{69, 105, 72, 255};
+
     SDL_Event event;
     while (!hasQuit) {
 
@@ -207,8 +209,7 @@ int main(int argc, char* argv[]) {
             pfPlane.update(elapsedTime);
         }
 
-        SDL_SetRenderDrawColor(progRen, 69, 105, 72, 255);
-        SDL_RenderClear(progRen);
+        mainInst.beginRender(winBgColor);
 
         // Draw here
         blLeg.render();
@@ -227,7 +228,7 @@ int main(int argc, char* argv[]) {
 
         fpsFont.render();
 
-        SDL_RenderPresent(progRen);
+        mainInst.finishRender();
     }
 
     return 0;

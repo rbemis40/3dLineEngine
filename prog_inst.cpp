@@ -47,6 +47,15 @@ ProgInstance::~ProgInstance() {
     SDL_Quit();
 }
 
+void ProgInstance::beginRender(SDL_Color bgColor) {
+    SDL_SetRenderDrawColor(_ren, bgColor.r, bgColor.g, bgColor.b, bgColor.a);
+    SDL_RenderClear(_ren);
+}
+
+void ProgInstance::finishRender() {
+    SDL_RenderPresent(_ren);
+}
+
 bool ProgInstance::isValid() {
     return _initSuccess;
 }
