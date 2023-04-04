@@ -5,7 +5,7 @@
 
 PFBlock::PFBlock(std::string block) {
     blockStr = cleanseInput(block);
-    printf("Cleansed input: %s\n", blockStr.c_str());
+    //printf("Cleansed input: %s\n", blockStr.c_str());
 }
 
 // Deallocate all of the newly created children block pointers

@@ -16,6 +16,7 @@
 #include "cylinder.h"
 #include "pfblock_tl.h"
 #include "rufont.h"
+#include "loop_timer.h"
 
 // Forward declarations
 struct RectDirs {
@@ -48,6 +49,8 @@ int main(int argc, char* argv[]) {
     SDL_Renderer *progRen = mainInst.getRen();
 
     RUFont fpsFont("fonts/Geneva.ttf", 12, mainInst);
+
+    LoopTimer loopTimer(mainInst);
 
     Camera mainCam((float)M_PI/2, mainInst);
 
@@ -111,6 +114,10 @@ int main(int argc, char* argv[]) {
 
         handleKeyPressed(event, moveDirs);
 
+        // ------- UPDATES --------
+
+        loopTimer.updateBegin();
+
         mainCam.update(elapsedTime);
         float camSpeed = mainCam.getSpeed();
 
@@ -137,6 +144,12 @@ int main(int argc, char* argv[]) {
             pfPlane.update(elapsedTime);
         }
 
+        loopTimer.updateEnd();
+
+        // -------- RENDER -------
+
+        loopTimer.renderBegin();
+
         mainInst.beginRender(winBgColor);
 
         // Draw here
@@ -157,7 +170,11 @@ int main(int argc, char* argv[]) {
         fpsFont.render();
         mainCam.renderDebug(0, 24);
 
+        loopTimer.renderStats(0, 108);
+
         mainInst.finishRender();
+
+        loopTimer.renderEnd();
     }
 
     return 0;

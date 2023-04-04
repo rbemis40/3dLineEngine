@@ -1,5 +1,6 @@
 #include "pfblock_point3d.h"
 
+
 PFBlockPoint3d::PFBlockPoint3d(std::string blockStr) : 
     PFBlock(blockStr), 
     isValid(false) {}
@@ -17,7 +18,6 @@ void PFBlockPoint3d::parseBlock() {
     }
 
     std::string xVal = blockStr.substr(lastPos, curPos - lastPos);
-    printf("XVal: %s\n", xVal.c_str());
 
     // True to convert x to a float
     try {
@@ -39,7 +39,6 @@ void PFBlockPoint3d::parseBlock() {
 
 
     std::string yVal = blockStr.substr(lastPos, curPos - lastPos);
-    printf("YVal: %s\n", yVal.c_str());
 
     try {
         point.y = std::stof(yVal);
@@ -53,7 +52,6 @@ void PFBlockPoint3d::parseBlock() {
 
     // The final value up to the end of the string should be the z value
     std::string zVal = blockStr.substr(lastPos);
-    printf("ZVal: %s\n", zVal.c_str());
 
     try {
         point.z = std::stof(zVal);
