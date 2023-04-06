@@ -73,6 +73,7 @@ int main(int argc, char* argv[]) {
     }
 
     std::vector<Plane> tlPFPlanes = tlFile.getPlanes(mainCam);
+    std::vector<Cube> tlPFCubes = tlFile.getCubes(mainCam);
 
     RectDirs moveDirs;
 
@@ -144,6 +145,10 @@ int main(int argc, char* argv[]) {
             pfPlane.update(elapsedTime);
         }
 
+        for (auto& pfCube : tlPFCubes) {
+            pfCube.update(elapsedTime);
+        }
+
         loopTimer.updateEnd();
 
         // -------- RENDER -------
@@ -165,6 +170,10 @@ int main(int argc, char* argv[]) {
 
         for (auto& pfPlane : tlPFPlanes) {
             pfPlane.render();
+        }
+
+        for (auto& pfCube : tlPFCubes) {
+            pfCube.render();
         }
 
         fpsFont.render();

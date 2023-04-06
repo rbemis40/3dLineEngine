@@ -7,6 +7,7 @@
 #include "pfblock.h"
 #include "plane.h"
 #include "camera.h"
+#include "cube.h"
 
 class PFBlockTopLevel : public PFBlock {
 public:
@@ -14,6 +15,7 @@ public:
     
     bool getValidity();
     std::vector<Plane> getPlanes(Camera& cam);
+    std::vector<Cube> getCubes(Camera& cam);
 
     BlockType getType() const;
 private:

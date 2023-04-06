@@ -8,7 +8,8 @@ enum class BlockType {
     INVALID,
     TOP,
     POINT,
-    PLANE
+    PLANE,
+    CUBE
 };
 
 enum BlockErrors {

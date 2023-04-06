@@ -2,6 +2,7 @@
 
 #include "pfblock_plane.h"
 #include "pfblock_point3d.h"
+#include "pfblock_cube.h"
 
 PFBlock::PFBlock(std::string block) {
     blockStr = cleanseInput(block);
@@ -75,10 +76,17 @@ void PFBlock::parseBlock() {
                 break;
             }
             case BlockType::POINT:
-                PFBlockPoint3d* newPointBlock = new PFBlockPoint3d(dataStr); // Creat eh new point block based off the data found in the {}
+            {
+                PFBlockPoint3d* newPointBlock = new PFBlockPoint3d(dataStr); // Creat the new point block based off the data found in the {}
                 children.push_back(newPointBlock);
 
                 break;
+            }
+            case BlockType::CUBE:
+            {
+                PFBlockCube* newCubeBlock = new PFBlockCube(dataStr); // Create the new cube block based off the data found
+                children.push_back(newCubeBlock);
+            }
         }
     }
 
@@ -102,6 +110,9 @@ int PFBlock::findBlockName(std::string subBlock, BlockType& type) {
             }
             else if (potName == "Point3d") {
                 type = BlockType::POINT;
+            }
+            else if (potName == "Cube") {
+                type = BlockType::CUBE;
             }
             else {
                 type = BlockType::INVALID;
