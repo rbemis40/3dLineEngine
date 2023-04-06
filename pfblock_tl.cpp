@@ -34,7 +34,9 @@ std::vector<Plane> PFBlockTopLevel::getPlanes(Camera& cam) {
     std::vector<Plane> planes;
 
     for(const auto child : children) {
-        planes.push_back(((PFBlockPlane*)child)->getPlane(cam));
+        if(child->getType() == BlockType::PLANE) {
+            planes.push_back(((PFBlockPlane*)child)->getPlane(cam));
+        }
     }
 
     return planes;
@@ -45,7 +47,9 @@ std::vector<Cube> PFBlockTopLevel::getCubes(Camera& cam) {
     std::vector<Cube> cubes;
 
     for(const auto child : children) {
-        cubes.push_back(((PFBlockCube*)child)->getCube(cam));
+        if (child->getType() == BlockType::CUBE) {
+            cubes.push_back(((PFBlockCube*)child)->getCube(cam));
+        }
     }
 
     return cubes;
