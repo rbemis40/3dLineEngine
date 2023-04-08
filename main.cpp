@@ -17,6 +17,7 @@
 #include "pfblock_tl.h"
 #include "rufont.h"
 #include "loop_timer.h"
+#include "safe_tex.h"
 
 // Forward declarations
 struct RectDirs {
