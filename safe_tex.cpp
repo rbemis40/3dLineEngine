@@ -7,7 +7,8 @@ int SafeTexture::_numTextures = 0;
 
 SafeTexture::SafeTexture(std::string texFile, ProgInstance& inst) :
     _inst(inst),
-    _dstRect{}
+    _dstRect{},
+    _numRefs(0)
 {
     // Check for image init
 
@@ -33,12 +34,28 @@ SafeTexture::SafeTexture(std::string texFile, ProgInstance& inst) :
     _isValid = true;
 }
 
+SafeTexture::SafeTexture(SafeTexture&& tex) :
+    _isValid(tex._isValid),
+    _inst(tex._inst),
+    _tex(tex._tex),
+    _dstRect(tex._dstRect)
+{
+    tex._numRefs++;
+    _numRefs = tex._numRefs;
+    _numTextures++;
+}
+
 SafeTexture::~SafeTexture() {
-    SDL_DestroyTexture(_tex);
+    if (_numRefs == 0) {
+        SDL_DestroyTexture(_tex);
+    }
+
     _numTextures--;
     if (_numTextures == 0) {
         IMG_Quit();
     }
+
+    _numRefs--;
 }
 
 void SafeTexture::renderAt(int x, int y, int w, int h) {

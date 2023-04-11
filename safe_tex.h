@@ -9,6 +9,7 @@
 class SafeTexture {
 public:
     SafeTexture(std::string texFile, ProgInstance& inst);
+    SafeTexture(SafeTexture&& tex);
     ~SafeTexture();
 
     void renderAt(int x, int y, int w, int h);
@@ -21,6 +22,8 @@ private:
     SDL_Texture* _tex;
 
     SDL_Rect _dstRect;
+
+    int _numRefs; //Need to keep track of the number of references to make sure the SDL_Texture isn't destoryed earlier
 
     static int _numTextures;
 };
