@@ -16,7 +16,7 @@ public:
     int getHeight() const;
 
     void renderAt(int x, int y, int w, int h);
-    void renderAt(int x, int y, int w, int h, int clipW, int clipH);
+    void renderAt(int x, int y, int w, int h, float clipW, float clipH);
 
     SDL_Texture* getRawTex();
 private:

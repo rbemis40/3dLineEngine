@@ -71,12 +71,13 @@ void SafeTexture::renderAt(int x, int y, int w, int h) {
     SDL_RenderCopy(_inst.getRen(), _tex, NULL, &_dstRect);
 }
 
-void SafeTexture::renderAt(int x, int y, int w, int h, int clipW, int clipH) {
+void SafeTexture::renderAt(int x, int y, int w, int h, float clipW, float clipH) {
     if (!_isValid) { return; }
 
     _dstRect = {x, y, w, h};
-    SDL_Rect clipRect = {x, y, 100, 100};
-    SDL_RenderCopy(_inst.getRen(), _tex, NULL, &_dstRect);
+    SDL_Rect clipRect = {0, 0, int(getWidth() * clipW), int(getHeight() * clipH)};
+
+    SDL_RenderCopy(_inst.getRen(), _tex, &clipRect, &_dstRect);
 }
 
 SDL_Texture* SafeTexture::getRawTex() {
