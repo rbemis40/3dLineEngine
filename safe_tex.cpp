@@ -7,9 +7,11 @@ int SafeTexture::_numTextures = 0;
 
 SafeTexture::SafeTexture(std::string texFile, ProgInstance& inst) :
     _inst(inst),
-    _dstRect{},
-    _numRefs(0)
+    _dstRect{}
 {
+    _numRefs = new int(1);
+
+
     // Check for image init
 
     const int INIT_FLAGS = IMG_INIT_JPG | IMG_INIT_PNG;
@@ -40,32 +42,55 @@ SafeTexture::SafeTexture(SafeTexture&& tex) :
     _tex(tex._tex),
     _dstRect(tex._dstRect)
 {
-    tex._numRefs++;
+    (*tex._numRefs)++;
     _numRefs = tex._numRefs;
     _numTextures++;
 }
 
 SafeTexture::~SafeTexture() {
-    if (_numRefs == 0) {
+    (*_numRefs)--;
+    if ((*_numRefs) == 0) {
         SDL_DestroyTexture(_tex);
+        delete _numRefs;
+        printf("Texture destroyed refs: %d\n", *_numRefs);
     }
 
     _numTextures--;
     if (_numTextures == 0) {
         IMG_Quit();
+        printf("IMG Quit\n");
     }
 
-    _numRefs--;
+    printf("Deconstructor called: Num refs: %d\n", *_numRefs);
 }
 
 void SafeTexture::renderAt(int x, int y, int w, int h) {
     if (!_isValid) { return; }
 
     _dstRect = {x, y, w, h};
+    SDL_RenderCopy(_inst.getRen(), _tex, NULL, &_dstRect);
+}
 
+void SafeTexture::renderAt(int x, int y, int w, int h, int clipW, int clipH) {
+    if (!_isValid) { return; }
+
+    _dstRect = {x, y, w, h};
+    SDL_Rect clipRect = {x, y, 100, 100};
     SDL_RenderCopy(_inst.getRen(), _tex, NULL, &_dstRect);
 }
 
 SDL_Texture* SafeTexture::getRawTex() {
     return _tex;
+}
+
+int SafeTexture::getWidth() const {
+    int w;
+    SDL_QueryTexture(_tex, NULL, NULL, &w, NULL);
+    return w;
+}
+
+int SafeTexture::getHeight() const {
+    int h;
+    SDL_QueryTexture(_tex, NULL, NULL, NULL, &h);
+    return h;
 }

@@ -12,7 +12,11 @@ public:
     SafeTexture(SafeTexture&& tex);
     ~SafeTexture();
 
+    int getWidth() const;
+    int getHeight() const;
+
     void renderAt(int x, int y, int w, int h);
+    void renderAt(int x, int y, int w, int h, int clipW, int clipH);
 
     SDL_Texture* getRawTex();
 private:
@@ -23,7 +27,7 @@ private:
 
     SDL_Rect _dstRect;
 
-    int _numRefs; //Need to keep track of the number of references to make sure the SDL_Texture isn't destoryed earlier
+    int* _numRefs; //Need to keep track of the number of references to make sure the SDL_Texture isn't destoryed earlier
 
     static int _numTextures;
 };
