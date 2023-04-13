@@ -18,6 +18,9 @@ public:
     void setText(std::string newText, SDL_Color colorFg, const SDL_Color* colorBg);
     void render();
 
+    int getPxWidth();
+    int getPxHeight();
+
     std::string getText();
 
 private:

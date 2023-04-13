@@ -99,3 +99,11 @@ void RUFont::clean() {
     _fTex = nullptr;
     _fSurf = nullptr;
 }
+
+int RUFont::getPxWidth() {
+    return _fSurf->w;
+}
+
+int RUFont::getPxHeight() {
+    return _fSurf->h;
+}

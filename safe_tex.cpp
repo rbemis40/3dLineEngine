@@ -32,7 +32,7 @@ SafeTexture::SafeTexture(std::string texFile, ProgInstance& inst) :
         return;
     }
 
-    printf("Num Textures: %d\n", _numTextures);
+    //printf("Num Textures: %d\n", _numTextures);
     _isValid = true;
 }
 
@@ -52,16 +52,16 @@ SafeTexture::~SafeTexture() {
     if ((*_numRefs) == 0) {
         SDL_DestroyTexture(_tex);
         delete _numRefs;
-        printf("Texture destroyed refs: %d\n", *_numRefs);
+        //printf("Texture destroyed refs: %d\n", *_numRefs);
     }
 
     _numTextures--;
     if (_numTextures == 0) {
         IMG_Quit();
-        printf("IMG Quit\n");
+        //printf("IMG Quit\n");
     }
 
-    printf("Deconstructor called: Num refs: %d\n", *_numRefs);
+    //printf("Deconstructor called: Num refs: %d\n", *_numRefs);
 }
 
 void SafeTexture::renderAt(int x, int y, int w, int h) {
