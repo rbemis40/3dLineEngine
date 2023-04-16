@@ -101,9 +101,9 @@ void RUFont::clean() {
 }
 
 int RUFont::getPxWidth() {
-    return _fSurf->w;
+    return _pos.w;
 }
 
 int RUFont::getPxHeight() {
-    return _fSurf->h;
+    return _pos.h;
 }

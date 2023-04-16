@@ -17,6 +17,8 @@ public:
 
     void renderAt(int x, int y, int w, int h);
     void renderAt(int x, int y, int w, int h, float clipW, float clipH);
+    
+    void renderCont(int x, int y, int w, int h, float texScale);
 
     SDL_Texture* getRawTex();
 private:
